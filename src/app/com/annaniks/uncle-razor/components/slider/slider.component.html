@@ -1,0 +1,17 @@
+<ngx-slick-carousel (init)="slickInit($event)" [ngClass]="{'init':isInit,'uninit':!isInit}" class="carousel"
+    #slickModal="slick-carousel" [config]="slideConfig" *ngIf="isBrowser">
+    <div ngxSlickItem *ngFor="let item of carouselItems" class="slide"
+        [ngStyle]="{'height':(itemHeight!='inherit') ? itemHeight+'px' : 'inherit'}">
+        <div class="carousel_item" *ngIf="carouselType=='main'">
+            <img class="image" cursor-pointer (click)="onClickMoreInfo(item)" [src]="fileUrl+prefix+item[imageKey]"
+                [alt]="item?.content">
+        </div>
+        <div class="carousel_item" *ngIf="carouselType=='small'" no-padding (click)="onClickCarouselItem(item)"
+            cursor-pointer>
+            <div class="small_image" [ngStyle]="{'background-image':'url('+fileUrl+'partners/'+item.image+')'}"></div>
+        </div>
+        <div class="carousel_item_good" *ngIf="carouselType=='good'">
+            <app-goods-list-item [product]="item"></app-goods-list-item>
+        </div>
+    </div>
+</ngx-slick-carousel>

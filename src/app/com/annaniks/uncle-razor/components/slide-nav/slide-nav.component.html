@@ -1,0 +1,26 @@
+<div class="slide_nav" [ngClass]="{'open':menuOpen,'close':!menuOpen}" *ngIf="visiblity">
+    <div class="slide_nav_container">
+        <div class="tabs">
+            <div class="tab_item" [ngClass]="{'active_tab':activeTab=='catalog'}"(click)="onClickTabItem('catalog')">
+                <p>КАТАЛОГ</p>
+            </div>
+            <div class="tab_item" [ngClass]="{'active_tab':activeTab=='information'}" (click)="onClickTabItem('information')">
+                <p>ИНФОРМАЦИЯ</p>
+            </div>
+        </div>
+        <div [ngSwitch]="activeTab">
+            <app-categories [isMain]="true" [categories]="slideNavItems" [isParent]="true" [isSlideNav]="true"
+                [isCloseMenu]="true" *ngSwitchCase="'catalog'"></app-categories>
+            <div class="topbar_items">
+                <div class="item" *ngSwitchCase="'catalog'" (click)="onClickSettings({routerLink:'/brands'})">
+                    БРЕНДЫ
+                </div>
+                <div  *ngSwitchCase="'information'">
+                    <div class="item" *ngFor="let item of menuItems" (click)="onClickSettings(item)">
+                        {{item.label}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

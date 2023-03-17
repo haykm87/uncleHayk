@@ -1,0 +1,22 @@
+<div class="catalog_content" id="catalog" [ngClass]="{'scroll':scroll}">
+    <div class="catalog_container" container>
+        <div class="content">
+            <div class="item" *ngFor="let item of catalogItems" [class.active_item]="isLinkActive(item)">
+                <a [routerLink]="(activeTab=='catalog') ? '/category/'+item.slug : item.routerLink" class="label">
+                    {{item.name || item.label}}
+                </a>
+                <div class="item___overlay">
+                    <div *ngFor="let subItem of item.subCategory;let ind = index" [ngStyle]="{width:(100/item.subCategory.length)+'%'}" class="block_item">
+                        <a class="sub_label sub_header" [routerLink]="'/category/'+subItem.slug">
+                            <i display-none class="arrow">&gt;</i>{{subItem?.name}}</a>
+                        <a no-margin class="sub_label" [routerLink]="'/category/'+subCategoryItem?.slug" *ngFor="let subCategoryItem of subItem.subCategory;let ind = index"><span
+                                margin-left-20>{{subCategoryItem?.name}}</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="item" routerLink="/brands" (click)="onClickItem()" *ngIf="activeTab=='catalog'" routerLinkActive="active_item" [routerLinkActiveOptions]="{exact: true}">
+                <a class="label">Бренды</a>
+            </div>
+        </div>
+    </div>
+</div>

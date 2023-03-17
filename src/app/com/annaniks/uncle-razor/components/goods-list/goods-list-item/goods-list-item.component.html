@@ -1,0 +1,41 @@
+<div class="goods_list_item" [ngStyle]="{'min-width':style?.minWidth}" (onmouseenter)="onMouseEnter()">
+
+    <div class="goods_list_container">
+        <div>
+            <div class="header">
+                <a [routerLink]="product?.alias?'/product/'+product?.alias:'/catalog/'+product?.id">
+                    <p cursor-pointer><span>{{product?.brandName}}</span></p>
+                </a>
+                <div class="rating">
+                    <app-rating (onSetRaing)="handleSetRating($event)" [rating]="productRating"></app-rating>
+                </div>
+            </div>
+            <div class="image" position-relative cursor-pointer>
+                <div [ngStyle]="getPosition(status)" *ngFor="let status of existStatusArray" class="status_image">
+                    <img [src]="status.icon" alt="">
+                    <div *ngIf="status.name =='Спецпредложения' && salePrice" class="sale_price">- {{salePrice}}%</div>
+                </div>
+                <a [routerLink]="product?.alias?'/product/'+product?.alias:'/product/'+product?.id" display-block>
+                    <img type="image" [src]="fileUrl+'products/'+product?.smallImage" [alt]="product?.alt" width="182px"
+                        height="195px" />
+                </a>
+            </div>
+            <div class="description" cursor-pointer>
+                <a [routerLink]="product?.alias?'/product/'+product?.alias:'/product/'+product?.id">
+                    <span>{{product?.name | splice_text:80:30}}</span>
+                </a>
+            </div>
+        </div>
+        <div class="info">
+            <div class="price">
+                <p class="custom_price" *ngIf="product?.specificPrice">{{product.price_with_vat}} ₽</p>
+                <p class="current_price">
+                    {{(product.specificPrice) ? product?.specificPrice : product?.price_with_vat}} ₽
+                </p>
+            </div>
+            <div class="basket_button">
+                <button (click)="onClickAddBasket()">В корзину</button>
+            </div>
+        </div>
+    </div>
+</div>
